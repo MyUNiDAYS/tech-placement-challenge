@@ -2,6 +2,22 @@ import sys
 
 from utils import errors
 
+class _Item:
+    def __init__(self, name, pricingRules):
+        self.name = name
+        self.unitPrice = pricingRules['price']
+        # number of items required to qualify for a discount
+        self.discountFrequency = pricingRules['discountFrequency']
+        # price of all items combined in a discount deal
+        self.discountedPrice = pricingRules['discountedPrice']
+        # the combined cost of all items of this type including discount
+        self.totalItemPrice = 0
+        # number of items that have yet to be included in discounts
+        # stays at 0 if the item has no applicable discount rules
+        self.discountCounter = 0
+        # the price change associated with adding an item
+        self.priceChange = 0
+
 class UnidaysDiscountChallenge:
     def __init__(self, pricingRules, deliveryRules):
         self.pricingRules = pricingRules
