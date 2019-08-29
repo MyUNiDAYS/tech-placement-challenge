@@ -18,6 +18,59 @@ class _Item:
         # the price change associated with adding an item
         self.priceChange = 0
 
+    # ==== PRIVATE METHODS ====
+    def _ApplyDiscount(self):
+        """
+        Checks to see if a multi-buy discount can be applied and 
+        adjusts the price according to the pricing rules.
+        """
+        # increment the discount counter for items with potential discounts
+        if self.discountFrequency > 0:
+            self.discountCounter += 1
+        # check to see if the frequency has been reached where discount can be applied
+        if self.discountCounter == self.discountFrequency:
+            # reset the discount counter to 0
+            self.discountCounter = 0
+            # remove full prices and replace with the discounted value
+            self.totalItemPrice -= (self.unitPrice * self.discountFrequency)
+            self.totalItemPrice += self.discountedPrice
+    
+    def _IncrementFullPrice(self):
+        """
+        Adds the full-price of an item onto the current total price.
+        """
+        self.totalItemPrice += self.unitPrice
+    
+    def _CalculatePriceChange(self, previousPrice):
+        """
+        Updates the price change property with the latest price change 
+        after adding a new unit and applying all discounts.
+        """
+        self.priceChange = self.totalItemPrice - previousPrice
+
+    def _CalculatePrice(self):
+        """
+        Calls all necessary functions to update the price with all 
+        applicable discounts.
+        """
+        # hold the previous price for the price change calculation
+        previousPrice = self.totalItemPrice
+        # increment the price with the full-price of the item
+        self._IncrementFullPrice()
+        # check for and apply discounts
+        self._ApplyDiscount()
+        # calculate the final price change after adding the unit
+        self._CalculatePriceChange(previousPrice)
+    
+    # ==== PUBLIC METHODS ====
+    def PriceChange(self):
+        """
+        Starts the price calculation and returns the price change
+        associated with the added unit.
+        """
+        self._CalculatePrice()
+        return self.priceChange
+
 class UnidaysDiscountChallenge:
     def __init__(self, pricingRules, deliveryRules):
         self.pricingRules = pricingRules
