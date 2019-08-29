@@ -151,3 +151,4 @@ class UnidaysDiscountChallenge:
         charge with all discounts are applied.
         """
         return self.price
+        
