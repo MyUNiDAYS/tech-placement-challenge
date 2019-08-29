@@ -10,3 +10,7 @@ deliveryRules = {
         'standard': 7,
         'freeThreshold': 50
         }
+
+errors = {
+    'invalidItem': 'An item was passed that has not been included in the pricing rules for this basket'
+}
