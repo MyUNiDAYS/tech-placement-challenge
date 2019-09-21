@@ -1,0 +1,32 @@
+[
+  {
+    "name": "A",
+    "price": 8.00,
+    "discount": null,
+    "condition": null
+  },
+  {
+    "name": "B",
+    "price": 12.00,
+    "discount": "BUY_X_FOR_Y_COST",
+    "condition": [2, 20]
+  },
+  {
+    "name": "C",
+    "price": 4.00,
+    "discount": "BUY_X_FOR_Y_COST",
+    "condition": [3, 10]
+  },
+  {
+    "name": "D",
+    "price": 7.00,
+    "discount": "BUY_X_GET_Y_FREE",
+    "condition": [1, 1]
+  },
+  {
+    "name": "E",
+    "price": 5.00,
+    "discount": "BUY_X_FOR_PRICE_OF_Y",
+    "condition": [3, 2]
+  }
+]
