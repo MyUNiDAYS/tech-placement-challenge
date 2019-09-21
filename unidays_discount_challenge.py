@@ -109,7 +109,6 @@ class UnidaysDiscountChallenge:
             elif discount_code == 'BUY_X_GET_Y_FREE':
                 group = x + y
                 actual_cost = (count // group * x * price) + (count % group * price)
-                pass
 
             # Example: 3 for the price of 2
             elif discount_code == 'BUY_X_FOR_PRICE_OF_Y':
