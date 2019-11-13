@@ -8,7 +8,7 @@ In order to complete this challenge, I experimented with implementing the [strat
 
 In order for the shopping system to communicate with the frontend, I utilized the [bloc pattern](https://pub.dev/packages/bloc). This can be explored in the [bloc](https://github.com/joeyvanlierop/tech-placement-challenge/tree/master/lib/shopping_system/bloc) folder. This turned out very well, and everything works perfectly.
 
-## Building the app
+## Building The App
 
 In order to build and run the app, you can try following the instructions [here](https://flutter.dev/docs/deployment/android). Otherwise, try the following:
 * Run `flutter build apk --release` to build an Android apk. (I have not tested the app on iOS, however it should work)
