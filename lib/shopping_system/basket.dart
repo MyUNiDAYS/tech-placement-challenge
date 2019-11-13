@@ -50,7 +50,7 @@ class Basket {
       double itemTotalPrice;
 
       if (item.discount == null) {
-        itemTotalPrice = item.price;
+        itemTotalPrice = item.price * count;
       } else {
         itemTotalPrice = item.discount.calculatePrice(item, count);
       }

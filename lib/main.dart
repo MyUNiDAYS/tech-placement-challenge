@@ -32,29 +32,48 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex;
-
-  List<Widget> _views = [
-    ShoppingListView(),
-    BasketView(),
-  ];
+  PageController pageController;
 
   @override
   void initState() {
     super.initState();
 
     _currentIndex = 0;
+    pageController = PageController(
+      initialPage: 0,
+      keepPage: true,
+    );
+  }
+
+  void _pageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
+      pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _views[_currentIndex],
+//      body: _views[_currentIndex],
+      body: PageView(
+        controller: this.pageController,
+        onPageChanged: _pageChanged,
+        children: <Widget>[
+          ShoppingListView(),
+          BasketView(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
