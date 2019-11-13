@@ -1,15 +1,17 @@
 import 'package:tech_placement_challenge/shopping_system/item.dart';
 
 class Basket {
+  final double deliveryCharge;
+  final double deliveryThreshold;
   Map<Item, int> itemList = new Map();
 
-  Basket();
+  Basket({this.deliveryCharge = 7.0, this.deliveryThreshold = 50.0});
 
-  void addItem(Item item, int toAdd) {
+  void addToBasket(Item item, int toAdd) {
     itemList.update(item, (count) => count + toAdd, ifAbsent: () => toAdd);
   }
 
-  void removeItem(Item item, int toRemove) {
+  void removeFromBasket(Item item, int toRemove) {
     if (itemList.containsKey(item)) {
       if (itemList[item] <= 1) {
         itemList.remove(item);
@@ -23,8 +25,8 @@ class Basket {
     itemList.clear();
   }
 
-  double calculateTotalPrice() {
-    double totalPrice = 0;
+  double calculatePrice() {
+    double price = 0;
 
     itemList.forEach((Item item, int count) {
       double itemTotalPrice;
@@ -35,9 +37,27 @@ class Basket {
         itemTotalPrice = item.discount.calculatePrice(item, count);
       }
 
-      totalPrice += itemTotalPrice;
+      price += itemTotalPrice;
     });
 
-    return totalPrice;
+    return price;
+  }
+
+  double calculateDelivery([double price]) {
+    double deliveryPrice = 0;
+    price ??= calculateTotalPrice();
+
+    if (price > 0 && price < deliveryThreshold) {
+      deliveryPrice = deliveryCharge;
+    }
+
+    return deliveryPrice;
+  }
+
+  double calculateTotalPrice() {
+    double price = calculatePrice();
+    double delivery = calculateDelivery(price);
+
+    return price + delivery;
   }
 }
