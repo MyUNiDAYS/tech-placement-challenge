@@ -14,6 +14,16 @@ class BasketView extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: <Widget>[
+                CustomListTile(
+                  leading: 'Order'.toUpperCase(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subhead
+                      .copyWith(fontWeight: FontWeight.w700),
+                ),
+                Divider(
+                  thickness: 0.6,
+                ),
                 ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -25,39 +35,33 @@ class BasketView extends StatelessWidget {
                     return Column(
                       children: <Widget>[
                         CustomListTile(
-                          leading: Text(item.name),
-                          trailing: Text(count.toString()),
+                          leading: item.name,
+                          trailing: count.toString(),
                         ),
                         Divider(
-                          thickness: 1,
+                          thickness: 0.6,
                         ),
                       ],
                     );
                   },
                 ),
                 CustomListTile(
-                  leading: Text('Subtotal'),
-                  trailing: Text(
-                    basket.calculatePrice().toString(),
-                  ),
-                  padding: EdgeInsets.only(
-                      top: 20.0, left: 16.0, right: 16.0, bottom: 10.0),
+                  leading: 'Subtotal',
+                  trailing: '\$' + basket.calculatePrice().toString(),
+                  padding: EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
                 ),
                 CustomListTile(
-                  leading: Text('Delivery'),
-                  trailing: Text(
-                    basket.calculateDelivery().toString(),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  leading: 'Delivery',
+                  trailing: '\$' + basket.calculateDelivery().toString(),
                 ),
                 CustomListTile(
-                  leading: Text('Total'),
-                  trailing: Text(
-                    basket.calculateTotalPrice().toString(),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  leading: 'Total',
+                  trailing: '\$' + basket.calculateTotalPrice().toString(),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subhead
+                      .copyWith(fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -69,15 +73,17 @@ class BasketView extends StatelessWidget {
 }
 
 class CustomListTile extends StatelessWidget {
-  final Widget leading;
-  final Widget trailing;
+  final String leading;
+  final String trailing;
   final EdgeInsets padding;
+  final TextStyle style;
 
   const CustomListTile({
     Key key,
     this.leading,
     this.trailing,
     this.padding,
+    this.style,
   }) : super(key: key);
 
   @override
@@ -87,8 +93,16 @@ class CustomListTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          if (leading != null) leading,
-          if (trailing != null) trailing,
+          if (leading != null)
+            Text(
+              leading,
+              style: this.style ?? Theme.of(context).textTheme.subhead,
+            ),
+          if (trailing != null)
+            Text(
+              trailing,
+              style: this.style ?? Theme.of(context).textTheme.subhead,
+            ),
         ],
       ),
     );

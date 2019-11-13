@@ -70,31 +70,22 @@ class ItemCard extends StatelessWidget {
                 Center(
                   child: Text(
                     this.item.name,
-                    style: TextStyle(
-                      fontSize: 120.0,
-                      fontWeight: FontWeight.w200,
-                    ),
+                    style: Theme.of(context).textTheme.display1,
                   ),
                 ),
                 Wrap(
                   spacing: 5.0,
                   direction: Axis.vertical,
                   children: <Widget>[
-                    Text(
-                      '\$' + this.item.price.toString(),
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
                     if (this.item.discount != null)
                       Text(
                         this.item.discount.description,
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color.fromRGBO(255, 100, 100, 0.6)),
+                        style: Theme.of(context).textTheme.subtitle,
                       ),
+                    Text(
+                      '\$' + this.item.price.toString(),
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
                   ],
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tech_placement_challenge/shopping_system/bloc/shopping_list_bloc.dart';
+import 'package:tech_placement_challenge/shopping_system/theme/theme.dart';
 import 'package:tech_placement_challenge/shopping_system/ui/basket_view.dart';
 import 'package:tech_placement_challenge/shopping_system/ui/shopping_list_view.dart';
 
@@ -17,10 +18,7 @@ class App extends StatelessWidget {
     return BlocProvider<ShoppingListBloc>(
       builder: (context) => ShoppingListBloc(),
       child: MaterialApp(
-        title: 'UNiDAYS Tech Placement Challenge',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: lightTheme,
         home: Home(),
       ),
     );
