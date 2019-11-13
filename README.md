@@ -14,6 +14,8 @@ In order to build and run the app, you can try following the instructions [here]
 * Run `flutter build apk --release` to build an Android apk. (I have not tested the app on iOS, however it should work)
 * Navigate to the generated apk in `build\app\outputs\apk\release` and install in on to your mobile device.
 
+Or you can simply install the latest apk from the [releases](https://github.com/joeyvanlierop/tech-placement-challenge/releases).
+
 ---
 
 
