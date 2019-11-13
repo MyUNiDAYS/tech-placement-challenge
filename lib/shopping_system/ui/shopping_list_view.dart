@@ -8,8 +8,8 @@ List<Item> itemList = [
   Item('A', 8),
   Item('B', 12, DiscountNForPrice(2, 20)),
   Item('C', 4, DiscountNForPrice(3, 10)),
-  Item('D', 7, DiscountBuyNGetN(1, 1)),
-  Item('E', 5, DiscountBuyNGetN(2, 1)),
+  Item('D', 7, DiscountBuyNGet1(1)),
+  Item('E', 5, DiscountBuyNGet1(2)),
 ];
 
 class ShoppingListView extends StatelessWidget {
