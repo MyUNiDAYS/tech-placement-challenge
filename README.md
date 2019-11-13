@@ -1,3 +1,24 @@
+# UNiDAYS Discounts Coding Challenge App
+
+This app is designed for the UNiDAYS Discounts Coding Challenge. It is powered by Flutter, with all the code being written in Dart. 
+
+## Introduction
+
+In order to complete this challenge, I experimented with implementing the [strategy pattern](https://en.wikipedia.org/wiki/Strategy_pattern). This can be explored in the [discount.dart](https://github.com/joeyvanlierop/tech-placement-challenge/blob/master/lib/shopping_system/discount.dart) file. Although I am unsure if I implemented the design pattern perfectly, everything functions quite well and the system should be very flexible for future expansion. More specific documentation is included in the files.
+
+In order for the shopping system to communicate with the frontend, I utilized the [bloc pattern](https://pub.dev/packages/bloc). This can be explored in the [bloc](https://github.com/joeyvanlierop/tech-placement-challenge/tree/master/lib/shopping_system/bloc) folder. This turned out very well, and everything works perfectly.
+
+## Building The App
+
+In order to build and run the app, you can try following the instructions [here](https://flutter.dev/docs/deployment/android). Otherwise, try the following:
+* Run `flutter build apk --release` to build an Android apk. (I have not tested the app on iOS, however it should work)
+* Navigate to the generated apk in `build\app\outputs\apk\release` and install in on to your mobile device.
+
+Or you can simply install the latest apk from the [releases](https://github.com/joeyvanlierop/tech-placement-challenge/releases).
+
+---
+
+
 # UNiDAYS Discounts Coding Challenge
 
 ## Introduction
