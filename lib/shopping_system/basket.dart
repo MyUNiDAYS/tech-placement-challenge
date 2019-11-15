@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:tech_placement_challenge/shopping_system/item.dart';
 
 /// An object which maintains items and information involved with the shopping
 /// system.
-class Basket {
+class Basket with ChangeNotifier {
   /// The price that must be surpassed in order for the delivery charge to not
   /// be applied.
   final double deliveryThreshold;
@@ -11,6 +12,9 @@ class Basket {
   final double deliveryCharge;
 
   /// The list items in the basket paired with their count.
+  ///
+  /// Prices could be cached within this list in the future in order to avoid
+  /// unnecessary recalculations
   Map<Item, int> itemList = new Map();
 
   Basket({this.deliveryCharge = 7.0, this.deliveryThreshold = 50.0});
@@ -21,6 +25,8 @@ class Basket {
   /// in [itemList], it will be added with a starting count of [toAdd].
   void addToBasket(Item item, int toAdd) {
     itemList.update(item, (count) => count + toAdd, ifAbsent: () => toAdd);
+
+    notifyListeners();
   }
 
   /// Removes an item from the basket.
@@ -35,11 +41,22 @@ class Basket {
         itemList.remove(item);
       }
     }
+
+    notifyListeners();
+  }
+
+  // Clears an item from the basket
+  void clearItemFromBasket(Item item) {
+    itemList.remove(item);
+
+    notifyListeners();
   }
 
   /// Clears the basket
   void clearBasket() {
     itemList.clear();
+
+    notifyListeners();
   }
 
   /// Calculated the price of the items in [itemList] after their discounts.
@@ -47,13 +64,7 @@ class Basket {
     double price = 0;
 
     itemList.forEach((Item item, int count) {
-      double itemTotalPrice;
-
-      if (item.discount == null) {
-        itemTotalPrice = item.price * count;
-      } else {
-        itemTotalPrice = item.discount.calculatePrice(item, count);
-      }
+      double itemTotalPrice = item.calculatePrice(count);
 
       price += itemTotalPrice;
     });

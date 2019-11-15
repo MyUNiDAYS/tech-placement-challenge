@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:tech_placement_challenge/shopping_system/basket.dart';
-import 'package:tech_placement_challenge/shopping_system/bloc/shopping_list_bloc.dart';
-import 'package:tech_placement_challenge/shopping_system/item.dart';
+import 'package:tech_placement_challenge/shopping_system/ui/basket_list_item.dart';
+
+import '../item.dart';
 
 class BasketView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShoppingListBloc, Basket>(
-      builder: (context, basket) {
+    return Consumer<Basket>(
+      builder: (_, basket, child) {
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: <Widget>[
-                CustomListTile(
-                  leading: 'Order'.toUpperCase(),
+                CustomTextListTile(
+                  leadingText: 'Order'.toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
                       .subhead
@@ -31,32 +32,26 @@ class BasketView extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     Item item = basket.itemList.keys.elementAt(index);
                     int count = basket.itemList[item];
-
-                    return Column(
-                      children: <Widget>[
-                        CustomListTile(
-                          leading: item.name,
-                          trailing: count.toString(),
-                        ),
-                        Divider(
-                          thickness: 0.6,
-                        ),
-                      ],
+                    return BasketListItem(
+                      item: item,
+                      count: count,
                     );
                   },
                 ),
-                CustomListTile(
-                  leading: 'Subtotal',
-                  trailing: '\$' + basket.calculatePrice().toString(),
-                  padding: EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
+                CustomTextListTile(
+                    leadingText: 'Subtotal',
+                    trailingText: '\$' + basket.calculatePrice().toString(),
+                    padding:
+                        EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
+                    style: Theme.of(context).textTheme.subhead),
+                CustomTextListTile(
+                  leadingText: 'Delivery',
+                  trailingText: '\$' + basket.calculateDelivery().toString(),
+                  style: Theme.of(context).textTheme.subhead,
                 ),
-                CustomListTile(
-                  leading: 'Delivery',
-                  trailing: '\$' + basket.calculateDelivery().toString(),
-                ),
-                CustomListTile(
-                  leading: 'Total',
-                  trailing: '\$' + basket.calculateTotalPrice().toString(),
+                CustomTextListTile(
+                  leadingText: 'Total',
+                  trailingText: '\$' + basket.calculateTotalPrice().toString(),
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   style: Theme.of(context)
                       .textTheme
@@ -73,17 +68,15 @@ class BasketView extends StatelessWidget {
 }
 
 class CustomListTile extends StatelessWidget {
-  final String leading;
-  final String trailing;
+  final Widget leading;
+  final Widget trailing;
   final EdgeInsets padding;
-  final TextStyle style;
 
-  const CustomListTile({
+  CustomListTile({
     Key key,
     this.leading,
     this.trailing,
     this.padding,
-    this.style,
   }) : super(key: key);
 
   @override
@@ -93,18 +86,35 @@ class CustomListTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          if (leading != null)
-            Text(
-              leading,
-              style: this.style ?? Theme.of(context).textTheme.subhead,
-            ),
-          if (trailing != null)
-            Text(
-              trailing,
-              style: this.style ?? Theme.of(context).textTheme.subhead,
-            ),
+          if (leading != null) leading,
+          if (trailing != null) trailing,
         ],
       ),
     );
   }
+}
+
+class CustomTextListTile extends CustomListTile {
+  CustomTextListTile({
+    Key key,
+    String leadingText,
+    String trailingText,
+    EdgeInsets padding,
+    TextStyle style,
+  }) : super(
+          key: key,
+          leading: leadingText != null
+              ? Text(
+                  leadingText,
+                  style: style,
+                )
+              : null,
+          trailing: trailingText != null
+              ? Text(
+                  trailingText,
+                  style: style,
+                )
+              : null,
+          padding: padding,
+        );
 }

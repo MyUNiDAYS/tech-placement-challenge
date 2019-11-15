@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tech_placement_challenge/shopping_system/bloc/bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:tech_placement_challenge/shopping_system/basket.dart';
 import 'package:tech_placement_challenge/shopping_system/discount.dart';
 import 'package:tech_placement_challenge/shopping_system/item.dart';
 
@@ -54,12 +54,7 @@ class ItemCard extends StatelessWidget {
         borderRadius: this.borderRadius,
         child: InkWell(
           onTap: () {
-            BlocProvider.of<ShoppingListBloc>(context)
-                .add(AddItem(item: this.item, count: 1));
-          },
-          onLongPress: () {
-            BlocProvider.of<ShoppingListBloc>(context)
-                .add(RemoveItem(item: this.item, count: 1));
+            Provider.of<Basket>(context, listen: false).addToBasket(item, 1);
           },
           child: Padding(
             padding: this.padding,

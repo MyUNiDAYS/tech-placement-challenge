@@ -13,4 +13,20 @@ class Item {
   final Discount discount;
 
   Item(this.name, this.price, [this.discount]);
+
+  /// Returns the price of a given amount of items with its discount being
+  /// taken into consideration
+  ///
+  /// @param count The amount of items being used to determine the price
+  double calculatePrice(int count) {
+    double itemTotalPrice;
+
+    if (discount == null) {
+      itemTotalPrice = price * count;
+    } else {
+      itemTotalPrice = discount.calculatePrice(this, count);
+    }
+
+    return itemTotalPrice;
+  }
 }

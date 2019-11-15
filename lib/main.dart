@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tech_placement_challenge/shopping_system/bloc/shopping_list_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:tech_placement_challenge/shopping_system/basket.dart';
 import 'package:tech_placement_challenge/shopping_system/theme/theme.dart';
 import 'package:tech_placement_challenge/shopping_system/ui/basket_view.dart';
 import 'package:tech_placement_challenge/shopping_system/ui/shopping_list_view.dart';
@@ -15,8 +15,8 @@ class App extends StatelessWidget {
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
 
-    return BlocProvider<ShoppingListBloc>(
-      builder: (context) => ShoppingListBloc(),
+    return ChangeNotifierProvider<Basket>(
+      builder: (context) => Basket(),
       child: MaterialApp(
         theme: lightTheme,
         home: Home(),
